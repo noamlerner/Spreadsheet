@@ -6,8 +6,18 @@
             this.innerHTML = APP.sheetGrid.updateCell(this);
         };
         this.onclick = function(){
-            this.innerHTML = APP.sheetGrid.getCellHidden(this.getAttribute("cell-id"));
+            var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
+            if (typeof c!== 'undefined') {
+                this.innerHTML = c.getContents();
+            }
         };
+        this.onkeydown = function(){
+            var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
+            if(typeof c === 'undefined'){
+                this.innerHTML = APP.sheetGrid.updateCell(this);
+            }
+            APP.sheetGrid.getCell(this.getAttribute('cell-id')).storeContents(this.innerHTML);
+        }
     };
     APP.CellElem = document.registerElement("cell-element", {prototype: cellProto});
 })();

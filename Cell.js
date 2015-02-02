@@ -58,6 +58,9 @@ APP.Cell = (function(pid, pcontents){
         },
         setElem:function(e){
             elem = e;
+        },
+        storeContents:function(s){
+            contents = s;
         }
     };
     cell.updateContent(pcontents);
