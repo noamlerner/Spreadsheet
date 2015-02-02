@@ -7,19 +7,27 @@ APP.sheetGrid = (function(){
     };
     var grid = {};
     return {
-        updateCell:function(location, contents){
-            var c;
+        updateCell:function(elem){
+            var c, location = elem.getAttribute("cell-id");
             if(typeof grid[location] === 'undefined') {
-                c = new APP.Cell(location, contents);
+                c = new APP.Cell(location, elem.innerHTML);
+                c.setElem(elem);
                 grid[location] = c;
             } else {
                 c = grid[location];
-                c.updateContent(contents);
+                c.updateContent(elem.innerHTML);
             }
-            return c.getShownText();
+            return c.getvalue();
         },
         getCellHidden:function(location){
-            return grid[location].getContents();
+            if (typeof  grid[location] !== 'undefined') {
+                return grid[location].getContents();
+            } else {
+                return '';
+            }
+        },
+        getCell:function(location){
+            return grid[location];
         }
     }
 })();

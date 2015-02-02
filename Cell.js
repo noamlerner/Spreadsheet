@@ -1,13 +1,12 @@
 APP.Cell = (function(pid, pcontents){
-    var contents;
-    var shownText;
-    var listeners = {};
+    var contents, value, elem;
+    var listeners = [];
     var id = pid;
     var notifiyListeners = function(){
-        var keys = Object.keys(listeners);
         var i;
-        for(i = 0; i < keys.length; i+=1){
-            listeners[keys[i]].updateNotification(cell);
+        for(i = 0; i < listeners.length; i+=1){
+            listeners[i].updateNotification(cell);
+            listeners.pop();
         }
     };
     var cell = {
@@ -23,17 +22,17 @@ APP.Cell = (function(pid, pcontents){
         },
         updateContent:function(s){
             contents = s;
+            value = APP.stringAnalyzer(s,this);
             notifiyListeners();
-            shownText = APP.stringAnalyzer(s);
         },
-        getShownText:function(){
-            return shownText;
+        getvalue:function(){
+            return value;
         },
-        updateShownText:function(s){
-            shownText = s;
+        updatevalue:function(s){
+            value = s;
         },
         addListener:function(listener){
-            listeners[listener.getID()]= listener;
+           listeners.push(listener);
         },
         removeListener:function(listener){
             delete listeners[listener.id];
@@ -43,7 +42,7 @@ APP.Cell = (function(pid, pcontents){
                 contents:contents,
                 id:id,
                 listeners:listeners,
-                shownText:shownText
+                value:value
             });
         },
         retreiveCell:function(c){
@@ -51,10 +50,14 @@ APP.Cell = (function(pid, pcontents){
             listeners = obj.listeners;
             contents = obj.contents;
             id = obj.id;
-            shownText = obj.shownText;
+            value = obj.value;
         },
         updateNotification:function(updatedCell){
-            //TODO
+            value = APP.stringAnalyzer(contents,this);
+            elem.innerHTML = value;
+        },
+        setElem:function(e){
+            elem = e;
         }
     };
     cell.updateContent(pcontents);
