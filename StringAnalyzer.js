@@ -6,9 +6,9 @@
         subContents = contents.substring(index+1,contents.indexOf(")"));
         vals = subContents.split(",");
         for(i = 0; i < vals.length; i++){
-            index = vals[i].indexOf(":");
+            index = vals[i].indexOf("|");
             if(index !== -1){
-                c = APP.sheetGrid.getCell(vals[i]);
+                c = APP.sheetGrid.getCell(vals[i].substring(1,vals[i].length-1));
                 if(typeof c !== 'undefined'){
                     c.addListener(cell);
                     vals[i] = c.getvalue();
@@ -34,9 +34,8 @@
         //account for: no command (just operations) and linking other cells
 
     };
-    var decomposeString = function (contents) {
+    var decomposeString = function (contents,cell) {
         var parens = [], numbers = {},operators = [], i, j;
-        parens.push({indexOpen:-1,indexClosed:contents.length});
         for (i = 0; i < contents.length; i++) {
             if (contents[i] === '(') {
                 parens.unshift({indexOpen: i});
@@ -57,11 +56,19 @@
                     length: j
                 };
                 i = i + j - 1;
-            } else {
+            } else if(APP.math.isOperator(contents[i])){
                 operators.push({
                     index: i,
                     operator: contents.substr(i, 1)
                 });
+            } else if(contents[i] ==='|'){
+                var ind = contents.indexOf('|',i+1);
+                c = APP.sheetGrid.getCell(contents.substring(i+1,ind));
+                if(typeof c !== 'undefined'){
+                    c.addListener(cell);
+                    numbers[i] = {num:Number(c.getvalue())};
+                }
+                i = ind;
             }
         }
         operators.sort(function(a,b){
@@ -86,7 +93,7 @@
         for(i = 0; i < parens.length; i++){
             solveExp(parens[i].indexOpen,parens[i].indexClosed,numbers,operators);
         }
-        console.log(numbers[Object.keys(numbers)[0]].num);
+        return numbers[Object.keys(numbers)[0]].num;
 
     };
     var solveExp = function(startIndex, endIndex, numbers,operators){
@@ -109,10 +116,7 @@
                         delete numbers[j];
                         j = endIndex+1;
                     }
-                }
-                console.log(APP);
-                console.log(operators[i].operator);
-                console.log(APP.math[operators[i].operator]);
+                };
                 numbers[index] = {
                     num: APP.math[operators[i].operator].apply(this,args),
                     length:len
