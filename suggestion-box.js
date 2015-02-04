@@ -43,6 +43,11 @@
                         ul.appendChild(li);
                     }
                 }
+                if(ul.innerHTML === ""){
+                    div.style.height = 0;
+                }else {
+                    div.style.removeProperty('height');
+                }
             }
         };
     }

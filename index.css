@@ -1,6 +1,8 @@
 body,html{
     height: 98%;
     width: 99%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
 }
 #grid{
     white-space: nowrap;

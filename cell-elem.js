@@ -11,10 +11,9 @@
         this.onclick = function (e) {
             APP.cellMethods.revealCell.apply(this);
             APP.sheetGrid.keepFocused(this);
-            APP.cellMethods.suggestionBox.apply(this);
+            APP.cellMethods.suggestionToggleOff.apply(this);
         };
         this.addEventListener("keydown",function(){
-            this.suggestionBox.updateSuggestions();
         });
 
         this.addEventListener("mouseenter", function () {
@@ -25,6 +24,8 @@
         });
 
         this.onkeydown = function () {
+            APP.cellMethods.createBox.apply(this);
+            this.suggestionBox.updateSuggestions();
             APP.cellMethods.storeButDontProcess.apply(this);
         }
     };
