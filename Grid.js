@@ -28,6 +28,7 @@ APP.sheetGrid = (function () {
                 grid[location] = c;
                 return c;
             }
+            return grid[location];
         },
         getCellHidden: function (location) {
             if (typeof  grid[location] !== 'undefined') {

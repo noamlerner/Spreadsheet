@@ -1,21 +1,17 @@
 (function () {
     var cellProto = Object.create(HTMLElement.prototype);
     cellProto.createdCallback = function () {
-        suggestionBox:{};
+        suggestionBox:undefined;
         this.setAttribute("contenteditable", "true");
         this.onblur = function () {
             this.innerHTML = APP.sheetGrid.updateCell(this);
             APP.sheetGrid.removeFocus(this);
-            this.suggestionBox.destroyBox();
-            this.suggestionBox = {};
+            APP.cellMethods.removeBox.apply(this);
         };
         this.onclick = function (e) {
-            APP.sheetGrid.createCell(this);
-            var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
-            this.innerHTML = c.getContents();
+            APP.cellMethods.revealCell.apply(this);
             APP.sheetGrid.keepFocused(this);
-            this.suggestionBox = new APP.SuggestionBox();
-            this.suggestionBox.createBox(this);
+            APP.cellMethods.suggestionBox.apply(this);
         };
         this.addEventListener("keydown",function(){
             this.suggestionBox.updateSuggestions();
@@ -29,11 +25,7 @@
         });
 
         this.onkeydown = function () {
-            var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
-            if (typeof c === 'undefined') {
-                this.innerHTML = APP.sheetGrid.updateCell(this);
-            }
-            APP.sheetGrid.getCell(this.getAttribute('cell-id')).storeContents(this.innerHTML);
+            APP.cellMethods.storeButDontProcess.apply(this);
         }
     };
     APP.CellElem = document.registerElement("cell-element", {prototype: cellProto});
