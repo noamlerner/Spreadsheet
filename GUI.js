@@ -7,21 +7,23 @@
         xcoords.style.top = sheet.scrollTop + "px";
     });
     sheet.insertBefore(xcoords,grid);
-    for(i = 0; i < 50; i++){
+    for(i = 0; i < 100; i++){
         div = document.createElement("div");
         div.setAttribute("class","box label");
+        div.setAttribute("id","c-"+i);
         div.innerHTML = i;
         xcoords.appendChild(div);
     }
     ycoords = document.createElement("div");
     ycoords.setAttribute('id','y-coords');
-    for(j = 1; j < 50; j++){
+    for(j = 1; j < 100; j++){
         curRow = document.createElement("div");
         div = document.createElement("div");
         div.setAttribute("class","box box-y label");
         div.innerHTML = j;
+        div.setAttribute("id","r-"+j);
         ycoords.appendChild(div);
-        for(i = 1; i < 50; i++){
+        for(i = 1; i < 100; i++){
             elem = new APP.CellElem();
             elem.setAttribute("cell-id",j+":"+i);
             elem.setAttribute("class","box")

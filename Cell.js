@@ -1,5 +1,5 @@
 APP.Cell = (function(pid, pcontents){
-    var contents, value, elem;
+    var contents, value, elem,locationHighlight = false;
     var listeners = [];
     var id = pid;
     var notifiyListeners = function(){
@@ -60,7 +60,7 @@ APP.Cell = (function(pid, pcontents){
         setElem:function(e){
             elem = e;
         },
-        storeContents:function(s){
+        storeContents:function(s) {
             contents = s;
         }
     };

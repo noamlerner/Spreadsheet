@@ -1,19 +1,27 @@
-(function(){
+(function () {
     var cellProto = Object.create(HTMLElement.prototype);
-    cellProto.createdCallback = function() {
-        this.setAttribute("contenteditable","true");
-        this.onblur = function(){
+    cellProto.createdCallback = function () {
+        this.setAttribute("contenteditable", "true");
+        this.onblur = function () {
             this.innerHTML = APP.sheetGrid.updateCell(this);
+            APP.sheetGrid.removeFocus(this);
         };
-        this.onclick = function(){
+        this.onclick = function () {
+            APP.sheetGrid.createCell(this);
             var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
-            if (typeof c!== 'undefined') {
-                this.innerHTML = c.getContents();
-            }
+            this.innerHTML = c.getContents();
+            APP.sheetGrid.keepFocused(this);
         };
-        this.onkeydown = function(){
+        this.addEventListener("mouseenter", function () {
+            APP.sheetGrid.highlightLocation(this);
+        });
+        this.addEventListener("mouseleave", function () {
+            APP.sheetGrid.removeHighlightLocation(this);
+        });
+
+        this.onkeydown = function () {
             var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
-            if(typeof c === 'undefined'){
+            if (typeof c === 'undefined') {
                 this.innerHTML = APP.sheetGrid.updateCell(this);
             }
             APP.sheetGrid.getCell(this.getAttribute('cell-id')).storeContents(this.innerHTML);
