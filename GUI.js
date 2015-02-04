@@ -23,7 +23,7 @@
         ycoords.appendChild(div);
         for(i = 1; i < 50; i++){
             elem = new APP.CellElem();
-            elem.setAttribute("cell-id",i+":"+j);
+            elem.setAttribute("cell-id",j+":"+i);
             elem.setAttribute("class","box")
             curRow.appendChild(elem);
         }
