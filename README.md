@@ -14,5 +14,7 @@ put equation into "=()" ...will solve according to PEMDAS (anything in parenthes
     will produce 35
 
 Link other cells in methods and arithmatic
-  format |<x-coord>:<y-coord>|
-    linking cell (1,1)
+  format |(x-coordinate):(y coordinate)|
+    linking cell (1,1) and (1,2) in sum method: =sum(|1:1|,|1:2|,2)
+      will add 4 to whatever is in sum method
+    the same thing in arithmatic: =(|1:1|+|1:2|+2)
