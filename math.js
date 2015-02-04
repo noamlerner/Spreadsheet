@@ -14,9 +14,6 @@
             }
             return product;
         },
-        shreyas:function(){
-            return "nahhhhh i dont wanna do that";
-        },
         isOperator:function(c){
             return c==='+'||c==='-'||c==='/'||c==='*'||c==='^';
         }

@@ -82,6 +82,9 @@
                     case "/":
                         return 2;
                         break;
+                    case "^":
+                        return 3;
+                        break;
                 }
             };
             return assignVal(b.operator) - assignVal(a.operator);
