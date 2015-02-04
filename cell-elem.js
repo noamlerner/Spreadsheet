@@ -5,13 +5,19 @@
         this.onblur = function () {
             this.innerHTML = APP.sheetGrid.updateCell(this);
             APP.sheetGrid.removeFocus(this);
+            APP.suggestionBox.destroyBox();
         };
         this.onclick = function () {
             APP.sheetGrid.createCell(this);
             var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
             this.innerHTML = c.getContents();
             APP.sheetGrid.keepFocused(this);
+            APP.suggestionBox.createBox(this);
         };
+        this.addEventListener("keydown",function(){
+            APP.suggestionBox.updateSuggestions();
+        });
+
         this.addEventListener("mouseenter", function () {
             APP.sheetGrid.highlightLocation(this);
         });

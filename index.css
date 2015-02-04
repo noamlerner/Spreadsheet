@@ -54,3 +54,6 @@ cell-element:focus{
 .focused{
     background-color: #8e44ad;
 }
+li{
+    list-style-type: none;
+}
