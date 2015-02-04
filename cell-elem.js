@@ -1,21 +1,24 @@
 (function () {
     var cellProto = Object.create(HTMLElement.prototype);
     cellProto.createdCallback = function () {
+        suggestionBox:{};
         this.setAttribute("contenteditable", "true");
         this.onblur = function () {
             this.innerHTML = APP.sheetGrid.updateCell(this);
             APP.sheetGrid.removeFocus(this);
-            APP.suggestionBox.destroyBox();
+            this.suggestionBox.destroyBox();
+            this.suggestionBox = {};
         };
-        this.onclick = function () {
+        this.onclick = function (e) {
             APP.sheetGrid.createCell(this);
             var c = APP.sheetGrid.getCell(this.getAttribute('cell-id'));
             this.innerHTML = c.getContents();
             APP.sheetGrid.keepFocused(this);
-            APP.suggestionBox.createBox(this);
+            this.suggestionBox = new APP.SuggestionBox();
+            this.suggestionBox.createBox(this);
         };
         this.addEventListener("keydown",function(){
-            APP.suggestionBox.updateSuggestions();
+            this.suggestionBox.updateSuggestions();
         });
 
         this.addEventListener("mouseenter", function () {
