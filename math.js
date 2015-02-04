@@ -14,6 +14,9 @@
             }
             return product;
         },
+        shreyas:function(){
+            return "nahhhhh i dont wanna do that";
+        },
         isOperator:function(c){
             return c==='+'||c==='-'||c==='/'||c==='*'||c==='^';
         }
@@ -26,10 +29,15 @@
         return sum;
     };
     APP.math["*"] = function(){
-        var product = 1;
-        for(var i = 0; i < arguments.length; i++){
-            product = product * Number(arguments[i]);
-        }
-        return product;
+        return Number(arguments[0]) * Number(arguments[1]);
+    };
+    APP.math["/"] = function(){
+        return Number(arguments[0]) / Number(arguments[1]);
+    };
+    APP.math["-"] = function(){
+        return Number(arguments[0]) - Number(arguments[1]);
+    };
+    APP.math["^"] = function(){
+        return Math.pow(Number(arguments[0]), Number(arguments[1]));
     };
 })();

@@ -55,6 +55,7 @@ APP.Cell = (function(pid, pcontents){
         updateNotification:function(updatedCell){
             value = APP.stringAnalyzer(contents,this);
             elem.innerHTML = value;
+            notifiyListeners();
         },
         setElem:function(e){
             elem = e;

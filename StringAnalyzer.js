@@ -29,10 +29,6 @@
         } else {
             return commandsHandler(contents,cell);
         }
-
-        //TODO currently just for show, need to actually make this functional
-        //account for: no command (just operations) and linking other cells
-
     };
     var decomposeString = function (contents,cell) {
         var parens = [], numbers = {},operators = [], i, j;
