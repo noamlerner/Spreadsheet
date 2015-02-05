@@ -29,7 +29,7 @@
             }
             APP.sheetGrid.getCell(this.getAttribute('cell-id')).storeContents(this.innerHTML);
         },
-        revealCell:function(){
+        revealCellContents:function(){
             var c = APP.sheetGrid.createCell(this);
             this.innerHTML = c.getContents();
         }

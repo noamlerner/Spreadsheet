@@ -9,7 +9,7 @@
             APP.cellMethods.removeBox.apply(this);
         };
         this.onclick = function (e) {
-            APP.cellMethods.revealCell.apply(this);
+            APP.cellMethods.revealCellContents.apply(this);
             APP.sheetGrid.keepFocused(this);
             APP.cellMethods.suggestionToggleOff.apply(this);
         };
