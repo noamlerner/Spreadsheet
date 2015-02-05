@@ -7,6 +7,9 @@ start entry with '='
 currently available commands:sum, multiply, isOperator
   example: =sum(1,2,3)
     this will produce 6
+you can also pass mathematical expressions as arguments
+  example: =sum(1,1+1,3*1)
+    this will produce 6
 
 Basic arithmetic
 put equation into "=()" ...will solve according to PEMDAS (anything in parenthesis first ->exponents->multiplcation/division->addtion/subtraction
